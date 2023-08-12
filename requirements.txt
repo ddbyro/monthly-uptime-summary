@@ -1,0 +1,5 @@
+Flask == 2.3.2
+PyYAML == 6.0.1
+gunicorn == 21.2.0
+prometheus-api-client == 0.5.3
+prometheus-flask-exporter == 0.22.4
