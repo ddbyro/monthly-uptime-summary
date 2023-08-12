@@ -1,10 +1,10 @@
+from flask import Flask, render_template, abort, url_for, jsonify
 from prometheus_api_client import PrometheusConnect
-from prometheus_client import start_http_server, Summary
-import random
-import time
+
 import datetime
 import json
 
+app = Flask(__name__)
 prom = PrometheusConnect(url="http://localhost:9090", disable_ssl=True)
 
 
@@ -20,7 +20,6 @@ def get_current_year():
     return year
 
 
-
 def get_current_month():
     mydate = datetime.datetime.now()
 
@@ -28,7 +27,6 @@ def get_current_month():
 
 
 def create_json_package(year=None):
-
     monthly_uptime = {'monthly-uptime':
         [
             {
@@ -55,7 +53,21 @@ def create_json_package(year=None):
 
     return json_pkg
 
+
+@app.route("/json/")
+def index():
+    return jsonify(
+        {
+            'monthly-uptime': {
+                f'{get_current_year()}': {
+                    f'{get_current_month()}': f'{get_uptime()[0]["value"][1].strip()}'
+                }
+            }
+        }
+    )
+
+
 if __name__ == '__main__':
-    years = ("2022",'2023')
-    for year in years:
-        print(create_json_package(year=year))
+    app.run(host='localhost', debug=True)
+
+
