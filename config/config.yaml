@@ -1,4 +1,4 @@
 prod:
-  hostname: 'kube-prom-stack-kube-prome-prometheus.monitoring.svc.cluster.local'
+  hostname: 'http://kube-prom-stack-kube-prome-prometheus.monitoring.svc.cluster.local'
   port: 9090
   query: "sum(sum_over_time(probe_success{instance=~\".*\"}[30d])) / sum(count_over_time(probe_success{instance=~\".*\"}[30d])) * 100"

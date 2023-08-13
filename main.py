@@ -2,7 +2,6 @@ from flask import Flask, jsonify
 from prometheus_api_client import PrometheusConnect
 import yaml
 import datetime
-import json
 
 app = Flask(__name__)
 config = yaml.full_load(open('./config/config.yaml'))
@@ -37,8 +36,5 @@ def index():
         }
     )
 
-
-if __name__ == '__main__':
-    app.run(host='localhost', debug=True)
 
 
