@@ -2,9 +2,7 @@ from flask import Flask, jsonify
 from prometheus_api_client import PrometheusConnect
 import yaml
 import datetime
-import json
 
-# a = gunicorn(__name__)
 app = Flask(__name__)
 config = yaml.full_load(open('./config/config.yaml'))
 prom = PrometheusConnect(url=f'{config["prod"]["hostname"]}:{config["prod"]["port"]}', disable_ssl=True)
@@ -26,7 +24,7 @@ def get_current_month():
     return mydate.strftime("%B")
 
 
-@app.route("/json/")
+@app.route("/")
 def index():
     return jsonify(
         {
@@ -38,8 +36,5 @@ def index():
         }
     )
 
-
-if __name__ == '__main__':
-    app.run(host='localhost', debug=True)
 
 
